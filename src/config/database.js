@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import fs from "fs";
+import { log } from "console";
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
@@ -21,15 +22,17 @@ async function testConnection() {
         await connectionDB.authenticate();
         console.log("Conectado com o banco de dados");
 
-        const sql = fs.readFileSync("../../migrations/init.sql", "utf-8");
-        const queries = sql
-            .split(";")
-            .map((q) => q.trim())
-            .filter((q) => q.length);
+        const sql = fs.readFileSync("migrations/init.sql", "utf-8");
+        console.log(sql);
 
-        for (const query of queries) {
-            await connectionDB.query(query);
-        }
+        // const queries = sql
+        //     .split(";")
+        //     .map((q) => q.trim())
+        //     .filter((q) => q.length);
+
+        // for (const query of queries) {
+        //     await connectionDB.query(query);
+        // }
     } catch (error) {
         console.error("Erro ao conectar:", error);
     }
