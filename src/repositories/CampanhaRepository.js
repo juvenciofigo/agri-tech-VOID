@@ -3,7 +3,13 @@ import { Campanha } from "../models/index.js";
 export default {
     async create({ nome, empresa_id, data_inicio, data_fim }) {
         try {
-            const campanha = await Empresa.create({
+            if (data_fim && new Date(data_fim) < new Date(data_inicio)) {
+                return res.status(400).json({
+                    error: "Data de fim dever ser seuperio a data de inicio",
+                });
+            }
+
+            const campanha = await Campanha.create({
                 nome,
                 empresa_id,
                 data_inicio,
