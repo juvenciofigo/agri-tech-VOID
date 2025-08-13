@@ -1,13 +1,12 @@
-import EmpresaService from "../services/EmpresaService.js";
+import empresaService from "../services/EmpresaService.js";
 export default {
     async create(req, res) {
         try {
-        } catch (error) {}
-    },
-    async getAll(req, res) {
-        try {
-            const empresas = await empresas.getAll();
-            return res.s;
-        } catch (error) {}
+            const empresa = await empresaService.create(req.body);
+
+            return res.status(201).json(empresa);
+        } catch (erro) {
+            res.status(400).json({ error: erro.message });
+        }
     },
 };

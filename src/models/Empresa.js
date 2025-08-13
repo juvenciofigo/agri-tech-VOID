@@ -21,5 +21,6 @@ export const Empresa = connectionDB.define("empresas", {
     },
     email: {
         type: DataTypes.STRING(100),
+        unique: true,
     },
 });

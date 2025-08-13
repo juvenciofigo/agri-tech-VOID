@@ -23,16 +23,15 @@ async function testConnection() {
         console.log("Conectado com o banco de dados");
 
         const sql = fs.readFileSync("migrations/init.sql", "utf-8");
-        console.log(sql);
 
-        // const queries = sql
-        //     .split(";")
-        //     .map((q) => q.trim())
-        //     .filter((q) => q.length);
+        const queries = sql
+            .split(";")
+            .map((q) => q.trim())
+            .filter((q) => q.length);
 
-        // for (const query of queries) {
-        //     await connectionDB.query(query);
-        // }
+        for (const query of queries) {
+            await connectionDB.query(query);
+        }
     } catch (error) {
         console.error("Erro ao conectar:", error);
     }
