@@ -1,10 +1,13 @@
-import { connectionDB } from "../config/database.js";
-import { Campanha } from "../models/Campanha.js";
+import empresaRepository from "../repositories/EmpresaRepository.js";
 
 export default {
-    async create({ nome, cnpj, telefone, email }) {
-        try {
-            const existEmail = Campanha.findAll();
-        } catch (error) {}
+    async create(data) {
+        const existEmail = await empresaRepository.findByEmail(data.email);
+        if (existEmail) throw new Error("Email já cadastrado");
+
+        const existCnpj = await empresaRepository.findByCnpj(data.cnpj);
+        if (existCnpj) throw new Error("Cnpj já cadastrado");
+
+        return await empresaRepository.create(data);
     },
 };
