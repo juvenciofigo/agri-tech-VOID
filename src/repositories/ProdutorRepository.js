@@ -1,5 +1,7 @@
+import { Campanha } from "../models/Campanha.js";
 import { Produtor } from "../models/Produtor.js";
 import { ProdutorCampanha } from "../models/ProdutorCampanha.js";
+import { Tecnico } from "../models/Tecnico.js";
 
 export default {
     async create({ nome, localizacao }) {
@@ -34,6 +36,7 @@ export default {
 
     async atribuir({ produtor_id, tecnico_id, campanha_id }) {
         try {
+            // Cria o registro
             const atribuicao = await ProdutorCampanha.create({
                 produtor_id,
                 tecnico_id,
@@ -41,37 +44,56 @@ export default {
                 data_registro: new Date(),
             });
 
-            return atribuicao;
+            // Busca com os dados do relacionamento
+            const atribuicaoCompleta = await ProdutorCampanha.findOne({
+                where: { id: atribuicao.id },
+                include: [
+                    { model: Produtor, as: "produtor" },
+                    { model: Tecnico, as: "tecnico" },
+                ],
+            });
+
+            return {
+                message: "Atribuição feita com sucesso",
+                atribuicao: atribuicaoCompleta,
+            };
         } catch (error) {
-            console.error("Erro ao fazer atribuicao", error);
+            console.error("Erro ao fazer atribuição", error);
             throw error;
         }
     },
 
     async transferir({ produtor_id, tecnico_antigo_id, tecnico_novo_id, campanha_id }) {
-        console.log(false, produtor_id, tecnico_antigo_id, tecnico_novo_id, campanha_id);
-
         try {
             const posicaoAtual = await ProdutorCampanha.findOne({
                 where: { produtor_id, tecnico_id: tecnico_antigo_id, campanha_id },
             });
 
             if (!posicaoAtual) {
-                throw new Error("Posicao atual atual não encontrada");
+                throw new Error("Posição atual não encontrada");
             }
 
-            const update = await posicaoAtual.update({
+            await posicaoAtual.update({
                 tecnico_id: tecnico_novo_id,
                 data_transferencia: new Date(),
             });
-            console.log(false, update);
+
+            // Buscar com dados relacionados
+            const dadosAtualizados = await ProdutorCampanha.findOne({
+                where: { id: posicaoAtual.id },
+                include: [
+                    { model: Produtor, as: "produtor" },
+                    { model: Tecnico, as: "tecnico" },
+                    { model: Campanha, as: "campanha" },
+                ],
+            });
 
             return {
                 message: "Produtor transferido com sucesso",
-                produtor: update,
+                produtor: dadosAtualizados,
             };
         } catch (error) {
-            console.error("Erro ao fazer atribuicao", error);
+            console.error("Erro ao fazer atribuição", error);
             throw error;
         }
     },
