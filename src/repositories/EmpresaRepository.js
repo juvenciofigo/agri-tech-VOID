@@ -9,7 +9,7 @@ export default {
                 telefone,
                 email,
             });
-            
+
             const result = {
                 id: empresa.id,
                 nome: empresa.nome,
@@ -30,6 +30,16 @@ export default {
             const empresa = await Empresa.findOne({
                 where: { email },
             });
+            return empresa;
+        } catch (error) {
+            console.error("Erro ao buscar empresa por email:", error);
+            throw error;
+        }
+    },
+
+    async findById(id) {
+        try {
+            const empresa = await Empresa.findByPk(id);
             return empresa;
         } catch (error) {
             console.error("Erro ao buscar empresa por email:", error);
