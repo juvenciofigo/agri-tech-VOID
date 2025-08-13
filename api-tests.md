@@ -113,12 +113,33 @@
 
 ```json
 {
-    "message": "Produtor atribuído ao técnico com sucesso",
+    "message": "Atribuicao feita com sucesso",
     "atribuicao": {
-        "id": 1,
-        "produtor_id": 1,
-        "tecnico_id": 1,
-        "campanha_id": 1
+        "message": "Atribuição feita com sucesso",
+        "atribuicao": {
+            "id": 3,
+            "data_registro": "2025-08-13T21:25:28.000Z",
+            "data_transferencia": null,
+            "produtor_id": 2,
+            "tecnico_id": 1,
+            "campanha_id": 1,
+            "createdAt": "2025-08-13T21:25:28.000Z",
+            "updatedAt": "2025-08-13T21:25:28.000Z",
+            "produtor": {
+                "id": 2,
+                "nome": "Maria Santos",
+                "localizacao": "Fazenda Boa Vista, Goiás",
+                "createdAt": "2025-08-13T20:34:00.000Z",
+                "updatedAt": "2025-08-13T20:34:00.000Z"
+            },
+            "tecnico": {
+                "id": 1,
+                "nome": "Juvencio",
+                "campanha_id": 1,
+                "createdAt": "2025-08-13T17:31:05.000Z",
+                "updatedAt": "2025-08-13T17:31:05.000Z"
+            }
+        }
     }
 }
 ```
@@ -130,11 +151,87 @@
 Primeiro, cadastre outro técnico:
 url:` POST http://localhost:3000/tecnicos`
 
-```json
+````json
  '{
 "nome": "Pedro Costa",
 "campanha_id": 1
 }'
+
+
+Depois, transfira o produtor:
+url:` PUT http://localhost:3000/produtores/transferir`
+
+```json
+'{
+    "produtor_id": 1,
+    "tecnico_antigo_id": 1,
+    "tecnico_novo_id": 2,
+    "campanha_id": 1
+  }'
+````
+
+**Resposta esperada:**
+
+```json
+{
+    "message": "Atribuicao feita com sucesso",
+    "atribuicao": {
+        "message": "Produtor transferido com sucesso",
+        "produtor": {
+            "id": 1,
+            "data_registro": "2025-08-13T18:34:54.000Z",
+            "data_transferencia": "2025-08-13T21:22:07.000Z",
+            "produtor_id": 1,
+            "tecnico_id": 1,
+            "campanha_id": 1,
+            "createdAt": "2025-08-13T18:34:54.000Z",
+            "updatedAt": "2025-08-13T21:22:07.000Z",
+            "produtor": {
+                "id": 1,
+                "nome": "Juvencio",
+                "localizacao": "Maputo",
+                "createdAt": "2025-08-13T17:53:50.000Z",
+                "updatedAt": "2025-08-13T17:53:50.000Z"
+            },
+            "tecnico": {
+                "id": 1,
+                "nome": "Juvencio",
+                "campanha_id": 1,
+                "createdAt": "2025-08-13T17:31:05.000Z",
+                "updatedAt": "2025-08-13T17:31:05.000Z"
+            },
+            "campanha": {
+                "id": 1,
+                "nome": "Campanha de Primavera",
+                "data_inicio": "2025-09-01",
+                "data_fim": "2025-09-30",
+                "empresa_id": 1,
+                "createdAt": "2025-08-13T17:30:30.000Z",
+                "updatedAt": "2025-08-13T17:30:30.000Z"
+            }
+        }
+    }
+}
+```
+
+## 7. Listar Produtores por Técnico
+
+url: GET http://localhost:3000/tecnicos/2/produtores
+
+**Resposta esperada:**
+
+```json
+[
+    {
+        "id": 1,
+        "nome": "Maria Santos",
+        "localizacao": "Fazenda Boa Vista, Goiás"
+    }
+]
+```
+
+```
+
 ```
 
 ```
