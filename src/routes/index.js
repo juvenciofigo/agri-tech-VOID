@@ -1,11 +1,11 @@
 import { Router } from "express";
 import empresa from "../controllers/EmpresaControllers.js";
 import campanha from "../controllers/CampanhaControllers.js";
-import tecnico from "../controllers/CampanhaControllers.js";
-import produtore from "../controllers/CampanhaControllers.js";
+import tecnico from "../controllers/TecnicoControllers.js";
+import produtor from "../controllers/ProdutorControllers.js";
 const router = Router();
 
-// health
+// Test
 router.get("/test", (req, res) => res.send("ok"));
 
 // Empresas
@@ -15,9 +15,10 @@ router.post("/empresa", empresa.create);
 router.post("/campanha", campanha.create);
 
 // Técnicos
-router.post("/tecnicos", tecnico.create);
+router.post("/tecnico", tecnico.create);
 
 // Produtores
-router.post("/tecnico", produtore.create);
+router.post("/produtor", produtor.create);
+router.post("/produtores/atribuir", produtor.atribuir);
 
 export default router;

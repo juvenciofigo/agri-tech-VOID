@@ -30,4 +30,13 @@ export default {
             throw error;
         }
     },
+    async findById(id) {
+        try {
+            const campanha = await Campanha.findByPk(id);
+            return campanha;
+        } catch (error) {
+            console.error("Erro ao buscar campanha", error);
+            throw error;
+        }
+    },
 };

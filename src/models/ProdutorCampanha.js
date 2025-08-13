@@ -5,27 +5,22 @@ import { Campanha } from "./Campanha.js";
 import { Tecnico } from "./Tecnico.js";
 
 export const ProdutorCampanha = connectionDB.define("produtores_campanhas", {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    data_registro: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-    data_transferencia: { type: DataTypes.DATE },
-    produtor_id: {
+    id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: "produtores",
-            key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        primaryKey: true,
+        autoIncrement: true,
     },
-    data_transferencia: { type: DataTypes.DATE },
+    data_registro: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+    },
+    data_transferencia: {
+        type: DataTypes.DATE,
+    },
     produtor_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: "produtores",
-            key: "id",
-        },
+        references: { model: "produtores", key: "id" },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
     },
@@ -42,10 +37,7 @@ export const ProdutorCampanha = connectionDB.define("produtores_campanhas", {
     campanha_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: "campanhas",
-            key: "id",
-        },
+        references: { model: "campanhas", key: "id" },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
     },
@@ -54,5 +46,3 @@ export const ProdutorCampanha = connectionDB.define("produtores_campanhas", {
 ProdutorCampanha.belongsTo(Produtor, { foreignKey: "produtor_id", as: "produtor" });
 ProdutorCampanha.belongsTo(Campanha, { foreignKey: "campanha_id", as: "campanha" });
 ProdutorCampanha.belongsTo(Tecnico, { foreignKey: "tecnico_id", as: "tecnico" });
-
-await ProdutorCampanha.sync({ alter: true });

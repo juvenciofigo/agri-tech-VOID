@@ -1,8 +1,8 @@
-import empresaService from "../services/EmpresaService.js";
+import EmpresaService from "../services/EmpresaService.js";
 export default {
     async create(req, res) {
         try {
-            const empresa = await empresaService.create(req.body);
+            const empresa = await EmpresaService.create(req.body);
 
             return res.status(201).json(empresa);
         } catch (erro) {

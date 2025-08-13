@@ -24,3 +24,5 @@ export const Empresa = connectionDB.define("empresas", {
         unique: true,
     },
 });
+
+
