@@ -1,23 +1,23 @@
 import { Router } from "express";
-import empresas from "../controllers/EmpresaControllers.js";
-import campanhas from "../controllers/CampanhaControllers.js";
-import tecnicos from "../controllers/CampanhaControllers.js";
-import produtores from "../controllers/CampanhaControllers.js";
+import empresa from "../controllers/EmpresaControllers.js";
+import campanha from "../controllers/CampanhaControllers.js";
+import tecnico from "../controllers/CampanhaControllers.js";
+import produtore from "../controllers/CampanhaControllers.js";
 const router = Router();
 
 // health
 router.get("/test", (req, res) => res.send("ok"));
 
 // Empresas
-router.post("/empresa", empresas.create);
+router.post("/empresa", empresa.create);
 
 // Campanha
-router.post("/campanhas", campanhas.create);
+router.post("/campanha", campanha.create);
 
 // Técnicos
-router.post("/tecnicos", tecnicos.create);
+router.post("/tecnicos", tecnico.create);
 
 // Produtores
-router.post("/tecnicos", produtores.create);
+router.post("/tecnico", produtore.create);
 
 export default router;
