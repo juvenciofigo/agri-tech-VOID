@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS campanhas (
     empresa_id INTEGER REFERENCES empresas(id), 
     data_inicio DATE NOT NULL, 
     data_fim DATE 
+    FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE
 ); 
  
 -- Técnicos 
@@ -21,6 +22,7 @@ CREATE TABLE IF NOT EXISTS tecnicos (
     id SERIAL PRIMARY KEY, 
     nome VARCHAR(255) NOT NULL, 
     campanha_id INTEGER REFERENCES campanhas(id) 
+    FOREIGN KEY (campanha_id) REFERENCES campanhas(id) ON DELETE CASCADE
 ); 
  
 -- Produtores 
@@ -38,4 +40,7 @@ CREATE TABLE IF NOT EXISTS produtores_campanhas (
     tecnico_id INTEGER REFERENCES tecnicos(id), 
     data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
     data_transferencia TIMESTAMP 
+    FOREIGN KEY (produtor_id) REFERENCES produtores(id) ON DELETE CASCADE,
+    FOREIGN KEY (campanha_id) REFERENCES campanhas(id) ON DELETE CASCADE,
+    FOREIGN KEY (tecnico_id) REFERENCES tecnicos(id) ON DELETE CASCADE
 ); 

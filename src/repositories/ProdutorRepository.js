@@ -47,4 +47,32 @@ export default {
             throw error;
         }
     },
+
+    async transferir({ produtor_id, tecnico_antigo_id, tecnico_novo_id, campanha_id }) {
+        console.log(false, produtor_id, tecnico_antigo_id, tecnico_novo_id, campanha_id);
+
+        try {
+            const posicaoAtual = await ProdutorCampanha.findOne({
+                where: { produtor_id, tecnico_id: tecnico_antigo_id, campanha_id },
+            });
+
+            if (!posicaoAtual) {
+                throw new Error("Posicao atual atual não encontrada");
+            }
+
+            const update = await posicaoAtual.update({
+                tecnico_id: tecnico_novo_id,
+                data_transferencia: new Date(),
+            });
+            console.log(false, update);
+
+            return {
+                message: "Produtor transferido com sucesso",
+                produtor: update,
+            };
+        } catch (error) {
+            console.error("Erro ao fazer atribuicao", error);
+            throw error;
+        }
+    },
 };

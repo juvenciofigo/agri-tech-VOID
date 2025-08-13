@@ -40,8 +40,37 @@ export default {
             throw new Error("Técnico não pertence à campanha mencionada");
         }
 
-        
-
         return await ProdutorRepository.atribuir(data);
+    },
+
+    // transferir
+    async transferir(data) {
+        if (!data.produtor_id || !data.tecnico_antigo_id || !data.tecnico_novo_id || !data.campanha_id) {
+            throw new Error("Todos os campos são obrigatórios");
+        }
+
+        // Verificar se o produtor existe
+        const produtor = await ProdutorRepository.findById(data.produtor_id);
+        if (!produtor) {
+            throw new Error("Produtor não encontrado");
+        }
+
+        const tecnicoAntigo = await TencicoRepository.findById(data.tecnico_antigo_id);
+        if (!tecnicoAntigo) {
+            throw new Error("Tecnico antigo nao encontrado");
+        }
+
+        const tecnicoNovo = await TencicoRepository.findById(data.tecnico_novo_id);
+        if (!tecnicoNovo) {
+            throw new Error("Tecnico novo nao encontrado");
+        }
+
+        // Verificar se a campanha existe
+        const campanha = await CampanhaRepository.findById(data.campanha_id);
+        if (!campanha) {
+            throw new Error("Camanha nao encontrada");
+        }
+
+        return await ProdutorRepository.transferir(data);
     },
 };
