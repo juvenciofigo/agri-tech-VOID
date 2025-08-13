@@ -1,0 +1,16 @@
+{
+    "name": "agri-tech-void",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon src/app.js"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "mysql2": "^3.9.8"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.0"
+    }
+}
