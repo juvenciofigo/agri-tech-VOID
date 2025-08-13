@@ -73,4 +73,12 @@ export default {
 
         return await ProdutorRepository.transferir(data);
     },
+
+    async getProdutores(data) {
+        const tecnicoAntigo = await TencicoRepository.findById(data.tecnico_antigo_id);
+        if (!tecnicoAntigo) {
+            throw new Error("Tecnico antigo nao encontrado");
+        }
+        return ProdutorRepository.getProdutores(data);
+    },
 };

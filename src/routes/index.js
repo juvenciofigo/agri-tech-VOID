@@ -16,11 +16,11 @@ router.post("/campanha", campanha.create);
 
 // Técnicos
 router.post("/tecnico", tecnico.create);
-router.get("/tecnicos/:id/produtores ", tecnico.create);
 
 // Produtores
 router.post("/produtor", produtor.create);
 router.post("/produtores/atribuir", produtor.atribuir);
 router.put("/produtores/transferir", produtor.transferir);
+router.get("/tecnicos/:id/produtores ", produtor.getProdutores);
 
 export default router;

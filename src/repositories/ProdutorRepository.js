@@ -97,4 +97,23 @@ export default {
             throw error;
         }
     },
+
+    async f(tecnico) {
+        try {
+            const produtoresCampanhas = await ProdutorCampanha.findAll({
+                where: { tecnico_id: id },
+                include: [
+                    {
+                        model: Produtor,
+                        as: "produtor",
+                        attributes: ["id", "nome", "localizacao"],
+                    },
+                ],
+            });
+            return { produtores: produtoresCampanhas };
+        } catch (error) {
+            console.error("Erro ao buscar produtores", error);
+            throw error;
+        }
+    },
 };

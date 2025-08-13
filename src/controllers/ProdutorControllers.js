@@ -28,4 +28,13 @@ export default {
             res.status(400).json({ error: erro.message });
         }
     },
+    async getProdutores(req, res) {
+        try {
+            const produtores = await ProdutorService.getProdutores(req.params);
+
+            return res.status(201).json(produtores);
+        } catch (erro) {
+            res.status(400).json({ error: erro.message });
+        }
+    },
 };
